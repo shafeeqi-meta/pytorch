@@ -268,6 +268,12 @@ def is_opaque_type(cls: Any) -> bool:
     if isinstance(cls, str):
         return torch._C._is_opaque_type_registered(cls)
 
+    if not isinstance(cls, type):
+        raise TypeError(
+            f"is_opaque_type() expected a type, got an instance of {type(cls)}. "
+            "Use is_opaque_type(type(obj)) instead."
+        )
+
     info = _resolve_opaque_type_info(cls)
     if info is None:
         return False

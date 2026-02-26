@@ -204,7 +204,7 @@ def create_tree_flattened_fn(
         tree_out = fn(*args, **kwargs)
         flat_out, spec = pytree.tree_flatten(tree_out)
         for i in flat_out:
-            is_known_type = isinstance(i, tuple(KNOWN_TYPES)) or is_opaque_type(i)
+            is_known_type = isinstance(i, tuple(KNOWN_TYPES)) or is_opaque_type(type(i))
             if not is_known_type:
                 raise RuntimeError(
                     f"Found {type(i)} in output, which is not a known type. "
